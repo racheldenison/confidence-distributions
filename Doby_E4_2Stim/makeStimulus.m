@@ -3,12 +3,13 @@ function gaborPatch = makeStimulus(window, contrastGrating)
 time1 = GetSecs;
 
 %Specify the outer bound of the annulus
+% width = 100; % for debugging
 width = degrees2pixels(4.5, 50, [], window);
-innerWidth = degrees2pixels(1.5, 50, [], window);
+% innerWidth = degrees2pixels(1.5, 50, [], window);
 
 %Diagonal pattern: contrast 10% with 2.29 cycles per degree 
 %(10.305 = 4.5 * 2.29)
-contrastNoise = .3;
+% contrastNoise = .3;
 nGaussianSDs = 10.305; 
 
 % compute the pixels per grating period
@@ -20,10 +21,11 @@ radiansPerPixel = spatialFrequency * (2 * pi); % = (periods per pixel) * (2 pi r
 % adjust contrast
 gray = 127;
 
-maxLuminance = 127 * contrastNoise; 
+% maxLuminance = 127 * contrastNoise; 
+maxLuminance = 127 * contrastGrating;
 
 % adjust black and white according to the specified contrast
-black = gray - maxLuminance;
+% black = gray - maxLuminance;
 white = gray + maxLuminance;
 
 halfWidthOfGrid = width / 2;
@@ -42,10 +44,11 @@ widthArray = (-halfWidthOfGrid) : halfWidthOfGrid;  % widthArray is used in crea
 % the grating is oriented horizontally unless otherwise specified.
 absoluteDifferenceBetweenWhiteAndGray = abs(white - gray);
 
-stimulusMatrix = (2*rand(width+1, width+1)-1);
+% stimulusMatrix = (2*rand(width+1, width+1)-1);
+stimulusMatrix = zeros(width+1, width+1);
 
 gratingMatrix = sin(radiansPerPixel * x);
-gratingMatrix = contrastGrating * gratingMatrix;
+% gratingMatrix = contrastGrating * gratingMatrix;
 
 stimulusMatrix = stimulusMatrix + gratingMatrix;
 stimulusMatrix = 2*Scale(stimulusMatrix)-1;

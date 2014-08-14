@@ -20,6 +20,8 @@ unattended_current.misses = 0;
 
 %load the central arrow matrix
 load arrow;
+arrowWidth = size(arrowMatrix,2);
+arrowMatrix(:,round(arrowWidth/2)+1:end,:) = arrowMatrix(1,1,1);
 arrow_image = Screen('MakeTexture', window, arrowMatrix);
 
 diameter = degrees2pixels(5, 50, [], window);
@@ -116,25 +118,17 @@ for i=1:number_trials
     %Draw the stimuli
     for number_frames=1:10
 
-        %Draw the 4 circles
+        %Draw the 2 circles
         if cued_diagonal == 1
             Screen('DrawTexture', window, ready_stimulus_attended, [], [width/2-inner-diameter, ...
                 height/2-inner-diameter, width/2-inner, height/2-inner], rotation_angle_attended);
-            Screen('DrawTexture', window, ready_stimulus_attended, [], [width/2+inner, ...
-                height/2+inner, width/2+inner+diameter, height/2+inner+diameter], rotation_angle_attended);
             Screen('DrawTexture', window, ready_stimulus_unattended, [], [width/2+inner, ...
                 height/2-inner-diameter, width/2+inner+diameter, height/2-inner], rotation_angle_unattended);
-            Screen('DrawTexture', window, ready_stimulus_unattended, [], [width/2-inner-diameter, ...
-                height/2+inner, width/2-inner, height/2+inner+diameter], rotation_angle_unattended);
         else
             Screen('DrawTexture', window, ready_stimulus_unattended, [], [width/2-inner-diameter, ...
                 height/2-inner-diameter, width/2-inner, height/2-inner], rotation_angle_unattended);
-            Screen('DrawTexture', window, ready_stimulus_unattended, [], [width/2+inner, ...
-                height/2+inner, width/2+inner+diameter, height/2+inner+diameter], rotation_angle_unattended);
-            Screen('DrawTexture', window, ready_stimulus_attended, [], [width/2+inner, ...
+           Screen('DrawTexture', window, ready_stimulus_attended, [], [width/2+inner, ...
                 height/2-inner-diameter, width/2+inner+diameter, height/2-inner], rotation_angle_attended);
-            Screen('DrawTexture', window, ready_stimulus_attended, [], [width/2-inner-diameter, ...
-                height/2+inner, width/2-inner, height/2+inner+diameter], rotation_angle_attended);
         end
 
         %Draw the cue
@@ -156,11 +150,7 @@ for i=1:number_trials
     if questioned_diagonal(i) == 1
         Screen('FrameOval', window, 255, [width/2-inner-diameter, height/2-inner-diameter, ...
             width/2-inner, height/2-inner], 2,2);
-        Screen('FrameOval', window, 255, [width/2+inner, height/2+inner, ...
-            width/2+inner+diameter, height/2+inner+diameter], 2,2);
     else
-        Screen('FrameOval', window, 255, [width/2-inner-diameter, height/2+inner, ...
-            width/2-inner, height/2+inner+diameter], 2,2);
         Screen('FrameOval', window, 255, [width/2+inner, height/2-inner-diameter, ...
             width/2+inner+diameter, height/2-inner], 2,2);
     end
@@ -196,11 +186,7 @@ for i=1:number_trials
     if questioned_diagonal(i) == 1
         Screen('FrameOval', window, 255, [width/2-inner-diameter, height/2-inner-diameter, ...
             width/2-inner, height/2-inner], 2,2);
-        Screen('FrameOval', window, 255, [width/2+inner, height/2+inner, ...
-            width/2+inner+diameter, height/2+inner+diameter], 2,2);
     else
-        Screen('FrameOval', window, 255, [width/2-inner-diameter, height/2+inner, ...
-            width/2-inner, height/2+inner+diameter], 2,2);
         Screen('FrameOval', window, 255, [width/2+inner, height/2-inner-diameter, ...
             width/2+inner+diameter, height/2-inner], 2,2);
     end

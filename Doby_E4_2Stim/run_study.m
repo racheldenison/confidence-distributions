@@ -4,7 +4,7 @@ try
 
     clear
     
-    skip_instructions = 1;
+    skip_instructions = 0;
     
     %Open window and do useful stuff
     [window,width,height] = openScreen();

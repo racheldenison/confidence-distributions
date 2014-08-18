@@ -1,4 +1,4 @@
-function initial_instructions(window, width, height)
+function initial_instructions(window, width, height, contrast)
 
 block_size = 40;
 wrapat = 60;
@@ -72,7 +72,7 @@ DrawFormattedText(window, text, 300, 'center', 255, wrapat);
 Screen('Flip',window);
 WaitSecs(1);
 KbWait;
-data_training = one_block(window, width, height, [.1 .1 .1 .1], block_size, .7, allData);
+data_training = one_block(window, width, height, repmat(contrast(end),1,4), block_size, .7, allData);
 
 %Feedback
 mistakes = num2str(100*data_training.number_incorrect/block_size);
@@ -88,7 +88,7 @@ DrawFormattedText(window, text, 300, 'center', 255, wrapat);
 Screen('Flip',window);
 WaitSecs(1);
 KbWait;
-contrast = [.06 .08 .1 .12]; 
+% contrast = [.06 .08 .1 .12]; 
 data_training = one_block(window, width, height, contrast, block_size, .7, allData);
 
 %Feedback

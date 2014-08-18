@@ -6,6 +6,12 @@ try
     
     skip_instructions = 0;
     
+    %Set the contrast levels
+    %     contrast = [.06 .08 .1 .12];
+    contrast = [.005 .01 .02 .04];
+    
+    block_size = 40;
+    
     %Open window and do useful stuff
     [window,width,height] = openScreen();
 
@@ -13,8 +19,6 @@ try
     Screen('TextSize',window, 20);
     Screen('FillRect', window, 127);
     wrapat = 60;
-
-    block_size = 40;
 
     allData.number_attended_fa = 0;
     allData.number_attended_cr = 0;
@@ -31,13 +35,9 @@ try
    
     %Give some initial instructions and practice trials
     if ~skip_instructions
-        initial_instructions(window, width, height);
+        initial_instructions(window, width, height, contrast);
     end
    
-    %Set the contrast levels
-%     contrast = [.06 .08 .1 .12];   
-    contrast = [.01 .02 .04 .08];
-    
     %Instructions
     text = 'Very good. We are now ready to begin the experiment. It will look exactly as the last few training blocks that you just completed. You will see your performance after each block, so try to keep it as high as possible.\n\nDon''t forget to always fixate on the red square in the middle!\n\nYou will have 4 runs of 6 blocks each. Each block will consist of 40 trials, like in the practice. You will have 15 seconds of rest after each block and will be able to take as much rest as you need between runs.\n\nNB! Don''t forget to use all 4 visibility ratings!.\n\nPress any key to start with the experiment!';
     DrawFormattedText(window, text, 300, 'center', 255, wrapat);

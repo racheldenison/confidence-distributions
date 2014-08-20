@@ -20,7 +20,7 @@ WaitSecs(1);
 KbWait;
 
 %Here's how the noise background looks like
-text = 'In this study you''ll be required to constantly fixate on a small red square in the center of the screen. In each trial you will see four circles that will consist of random noise and superimposed gratings tilted left or right on top of them.\n\nPress any key to see how the circles with superimposed tilted gratings look like.';
+text = 'In this study you''ll be required to constantly fixate on a small red square in the center of the screen. In each trial you will see four circles that will consist of gratings tilted left or right.\n\nPress any key to see how the gratings look.';
 DrawFormattedText(window, text, 300, 'center', 255, wrapat);
 Screen('Flip',window);
 WaitSecs(1);
@@ -44,14 +44,14 @@ for i=1:2
 end
 
 %Set up
-text = 'In the actual experiment you will always see 4 circles. An arrow will point to two of the circles in one of the diagonals. In each diagonal the circles will contain gratings tilted either left or right with both circles in the same diagonal containing gratings of the same orientation. Pay special attention to the pointed diagonal as you will be asked to indicate the orientation of the grating in that diagonal on 70% of the trials. In 30% of the trials you will be asked to indicate the orientation of grating in the diagonal that was not pointed.\n\nPress any key to continue.';
+text = 'In the actual experiment you will always see 2 circles. An arrow will point to one of the circles. Both circles will contain gratings tilted either left or right. Pay special attention to the pointed circle as you will be asked to indicate the orientation of that grating on 70% of the trials. In 30% of the trials you will be asked to indicate the orientation of the grating that was not pointed.\n\nPress any key to continue.';
 DrawFormattedText(window, text, 300, 'center', 255, wrapat);
 Screen('Flip',window);
 WaitSecs(1);
 KbWait;
 
 %Easy examples
-text = 'Let''s now do some example trials at high contrast for the gratings at which it should be easier to do the task.\n\nRemember to always fixate on the small square in the center of the screen. The arrow will always point to the same diagonal within a single block of trials.\n\nYour job will be to indicate the orientation of the grating of the two circles that remain on the screen after the presentation (which will always be from the same diagonal). Use the keys ''1'' and ''2''. After indicating the orientation of the gratings, a second question will ask you to rate the visibility of the gratings with 4 options. For now, you will probably use only the "high visibility" option but later on the gratings will become less visible.\n\nPress any key to continue.';
+text = 'Let''s now do some example trials at high contrast for the gratings at which it should be easier to do the task.\n\nRemember to always fixate on the small square in the center of the screen. The arrow will always point to the same circle within a single block of trials.\n\nYour job will be to indicate the orientation of the grating of the circle that remains on the screen after the presentation. Use the keys ''1'' and ''2''. After indicating the orientation of the gratings, a second question will ask you to rate the visibility of the gratings with 4 options. For now, you will probably use only the "high visibility" option but later on the gratings will become less visible.\n\nPress any key to continue.';
 DrawFormattedText(window, text, 300, 'center', 255, wrapat);
 Screen('Flip',window);
 WaitSecs(1);

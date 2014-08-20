@@ -44,12 +44,14 @@ confMean = squeeze(totals.means(:,4,:));
 %% plot figures
 figure
 plot(repmat(contrasts',1,2), accMean)
+ylim([.5 1])
 legend(num2str(attConds'))
 xlabel('contrast')
 ylabel('proportion correct')
 
 figure
 plot(repmat(contrasts',1,2), confMean)
+ylim([1 4])
 legend(num2str(attConds'))
 xlabel('contrast')
 ylabel('mean confidence rating')
@@ -61,14 +63,15 @@ for iContrast = 1:nC
     for iAtt = 1:nA
         subplot(nC,nA,(iContrast-1)*nA+iAtt)
         hist(totals.all{iContrast,iAtt}(:,4))
+        xlim([0 4])
         if iContrast==1
             title(sprintf('attended = %d', attConds(iAtt)))
         end
         if iAtt==1
             ylabel(sprintf('%d%%', 100*contrasts(iContrast)))
-            ylim([0 120*(3/7)])
+            ylim([0 200*(3/7)])
         else
-            ylim([0 120])
+            ylim([0 200])
         end
     end
 end

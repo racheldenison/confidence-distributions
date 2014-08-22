@@ -1,6 +1,16 @@
 % rd_analyzeDobyE4.m
 
-% load in 'data'
+%% setup
+subjectID = 'waPilot_20140819';
+
+dataDir = 'data';
+figDir = 'figures';
+
+saveFigs = 1;
+
+%% load data
+data = rd_loadData(dataDir, subjectID);
+data = data.data;
 
 %% initialize variables
 contrast = [];
@@ -42,21 +52,23 @@ accMean = squeeze(totals.means(:,6,:));
 confMean = squeeze(totals.means(:,4,:));
 
 %% plot figures
-figure
+f(1) = figure;
 plot(repmat(contrasts',1,2), accMean)
 ylim([.5 1])
-legend(num2str(attConds'))
+legend(num2str(attConds'),'Location','best')
 xlabel('contrast')
 ylabel('proportion correct')
+title(subjectID)
 
-figure
+f(2) = figure;
 plot(repmat(contrasts',1,2), confMean)
 ylim([1 4])
-legend(num2str(attConds'))
+legend(num2str(attConds'),'Location','best')
 xlabel('contrast')
 ylabel('mean confidence rating')
+title(subjectID)
 
-figure
+f(3) = figure;
 nC = numel(contrasts);
 nA = numel(attConds);
 for iContrast = 1:nC
@@ -68,12 +80,23 @@ for iContrast = 1:nC
             title(sprintf('attended = %d', attConds(iAtt)))
         end
         if iAtt==1
-            ylabel(sprintf('%d%%', 100*contrasts(iContrast)))
+            if round(100*contrasts(iContrast))~=100*contrasts(iContrast)
+                ylabel(sprintf('%1.1f%%', 100*contrasts(iContrast)))
+            else
+                ylabel(sprintf('%d%%', 100*contrasts(iContrast)))
+            end
             ylim([0 200*(3/7)])
         else
             ylim([0 200])
         end
     end
+end
+rd_supertitle(subjectID)
+
+%% save figures
+if saveFigs
+    figNames = {'acc','conf','confdist'};
+    rd_saveAllFigs(f, figNames, [subjectID '_DobyE42Stim'], figDir);
 end
         
         

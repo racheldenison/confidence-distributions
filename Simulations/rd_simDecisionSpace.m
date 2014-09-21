@@ -1,8 +1,22 @@
 % rd_simDecisionSpace.m
 
-g = rd_makeStimulus(1);
-tv = g;
-th = g';
+discriminationType = 'coarse'; % 'coarse','fine'
+
+%% build templates
+switch discriminationType
+    case 'coarse'
+        % make orthogonal grating templates
+        tv = rd_makeStimulus(100,0); % contrast=100 is a hack to get a noise-free grating
+        th = rd_makeStimulus(100,90);
+    case 'fine'
+        % make grating templates with small orientation difference
+%         tv = buildColorGrating(90, [1 1], 10, 2, 0, 1);
+%         th = buildColorGrating(90, [1 1], 10, -2, 0, 1);
+        tv = rd_makeStimulus(100,0);
+        th = rd_makeStimulus(100,2);
+    otherwise
+        error('discrimination type not recognized')
+end
 
 deltaT = tv-th;
 tbar = (tv+th)/2;
@@ -20,8 +34,13 @@ contrasts = [.1 .2 .3 .4 .5];
 for iContrast = 1:numel(contrasts)
     contrast = contrasts(iContrast);
     for iTrial = 1:nTrials
-        gv = rd_makeStimulus(contrast);
-        evv(iTrial,iContrast) = deltaT(:)'*(gv(:)-tbar(:));
+%         switch discriminationType
+%             case 'coarse'
+                gv = rd_makeStimulus(contrast);
+                evv(iTrial,iContrast) = deltaT(:)'*(gv(:)-tbar(:));
+%             case 'fine'
+%                 error('Fine discrimination not implemented for noise contrast')
+%         end
     end
 end
 
@@ -51,8 +70,13 @@ contrasts = [.1 .2 .3 .4 .5];
 for iContrast = 1:numel(contrasts)
     contrast = contrasts(iContrast);
     for iTrial = 1:nTrials
-        gv = rd_makeStimulus(1);
-        gv = ((gv/255-.5)*contrast + .5)*255;
+%         switch discriminationType
+%             case 'coarse'
+                gv = rd_makeStimulus(1);
+                gv = ((gv/255-.5)*contrast + .5)*255;
+%             case 'fine'
+%                 gv = buildColorGrating(90, [1 1], 10, 2, 0, contrast);
+%         end
         evv(iTrial,iContrast) = deltaT(:)'*(gv(:)-tbar(:));
     end
 end

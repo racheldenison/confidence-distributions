@@ -1,6 +1,10 @@
-function gaborPatch = rd_makeStimulus(contrastGrating)
+function gaborPatch = rd_makeStimulus(contrastGrating, tiltInDegrees)
 
 time1 = GetSecs;
+
+if nargin<2
+    tiltInDegrees = 0;
+end
 
 %Specify the outer bound of the annulus
 % width = degrees2pixels(4.5, 50, [], window);
@@ -46,10 +50,19 @@ absoluteDifferenceBetweenWhiteAndGray = abs(white - gray);
 
 stimulusMatrix = (2*rand(width+1, width+1)-1);
 
-gratingMatrix = sin(radiansPerPixel * x);
+tiltInRadians = tiltInDegrees * pi / 180;
+a1 = cos(tiltInRadians) * radiansPerPixel;
+b1 = sin(tiltInRadians) * radiansPerPixel;
+
+gratingMatrix = sin(a1*x+b1*y);
+% gratingMatrix = sin(radiansPerPixel * x);
 gratingMatrix = contrastGrating * gratingMatrix;
 
-stimulusMatrix = stimulusMatrix + gratingMatrix;
+if contrastGrating == 100 % a hack to get a noise-free grating
+    stimulusMatrix = gratingMatrix;
+else
+    stimulusMatrix = stimulusMatrix + gratingMatrix;
+end
 stimulusMatrix = 2*Scale(stimulusMatrix)-1;
 
 annulusMatrix = ones(width+1, width+1);

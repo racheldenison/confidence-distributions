@@ -55,7 +55,7 @@ contrasts = [.1 .2 .3 .4 .5];
 for iContrast = 1:numel(contrasts)
     contrast = contrasts(iContrast);
     for iTrial = 1:nTrials
-        gv = rd_makeStimulus(1);
+        gv = rd_makeStimulus(1); % note the sample image needs some noise to generate a distribution
         gv = ((gv/255-.5)*contrast + .5)*255;
         evv(iTrial,iContrast) = deltaT(:)'*(gv(:)-tbar(:));
     end
